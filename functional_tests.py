@@ -13,6 +13,12 @@ class NewVisitorTest(unittest.TestCase):
 		'''демонтаж'''
 		self.browser.quit()
 
+	def check_for_row_in_list_table(self, row_text):
+		'''подтверждение строки в таблице списка'''
+		table = self.browser.find_element_by_id('id_list_table')
+		rows = table.find_elements_by_tag_name('tr')
+		self.assertIn(row_text,  [row.text for row in rows])
+
 	def test_can_start_a_list_and_retrieve_it_later(self):
 		'''тест: можно начать список и получить его позже'''
 		#эдит слышала про приложение с онлайн списком по адресу
@@ -38,14 +44,8 @@ class NewVisitorTest(unittest.TestCase):
 		inputbox.send_keys(Keys.ENTER)
 		time.sleep(1)
 
-		table = self.browser.find_element_by_id('id_list_table')
-		rows = table.find_elements_by_tag_name('tr')
-		# self.assertTrue(
-		# 	any(row.text == '1: Купить павлиньи перья' for row in rows),
-		# 	f"Новый элемент списка не появился в таблице. Содержимым было:\
-		# \n{table.text}"
-		# )
-		self.assertIn('1: Купить павлиньи перья', [row.text for row in rows])
+		self.check_for_row_in_list_table('1: Купить павлиньи перья')
+
 		#текстовое поле приглашает ее ввести элемент 2
 		#она вводит "сделать мушку из павлиньих перьев"
 		#эдит очень методична
@@ -55,11 +55,9 @@ class NewVisitorTest(unittest.TestCase):
 		time.sleep(1)
 		
 		#страница обновляется и теперь в спике 2 элемента
-		table = self.browser.find_element_by_id('id_list_table')
-		rows = table.find_elements_by_tag_name('tr')
-		self.assertIn('1: Купить павлиньи перья', [row.text for row in rows])
-		self.assertIn('2: Сделать мушку из павлиньих перьев', [row.text for row in rows])
-		
+		self.check_for_row_in_list_table('1: Купить павлиньи перья')
+		self.check_for_row_in_list_table('2: Сделать мушку из павлиньих перьев')
+
 		#эдит интересно запомнился ли ее список. сайт сгенерировал для нее уникальный URL и об этом выводится небольшой текст с пояснениями
 
 		#она посещает этот URL и ее список еще там
