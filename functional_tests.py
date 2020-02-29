@@ -39,24 +39,33 @@ class NewVisitorTest(unittest.TestCase):
 		time.sleep(1)
 
 		table = self.browser.find_element_by_id('id_list_table')
-		rows = table.find_element_by_tag_name('tr')
-		self.assertTrue(
-			any(row.text == '1: Купить павлиньи перья' for row in rows),
-			"Новый элемент списка не появился в таблице"
-		)
+		rows = table.find_elements_by_tag_name('tr')
+		# self.assertTrue(
+		# 	any(row.text == '1: Купить павлиньи перья' for row in rows),
+		# 	f"Новый элемент списка не появился в таблице. Содержимым было:\
+		# \n{table.text}"
+		# )
+		self.assertIn('1: Купить павлиньи перья', [row.text for row in rows])
 		#текстовое поле приглашает ее ввести элемент 2
 		#она вводит "сделать мушку из павлиньих перьев"
 		#эдит очень методична
-		self.fail('Закончить тест!')
+		inputbox = self.browser.find_element_by_id('id_new_item')
+		inputbox.send_keys('Сделать мушку из павлиньих перьев')
+		inputbox.send_keys(Keys.ENTER)
+		time.sleep(1)
 		
 		#страница обновляется и теперь в спике 2 элемента
-
+		table = self.browser.find_element_by_id('id_list_table')
+		rows = table.find_elements_by_tag_name('tr')
+		self.assertIn('1: Купить павлиньи перья', [row.text for row in rows])
+		self.assertIn('2: Сделать мушку из павлиньих перьев', [row.text for row in rows])
+		
 		#эдит интересно запомнился ли ее список. сайт сгенерировал для нее уникальный URL и об этом выводится небольшой текст с пояснениями
 
 		#она посещает этот URL и ее список еще там
 
 		#ей нравки и она идет спать
-
+		self.fail('Закончить тест!')
 
 if __name__ == '__main__':
 	unittest.main(warnings='ignore')
