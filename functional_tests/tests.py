@@ -103,7 +103,7 @@ class NewVisitorTest(LiveServerTestCase):
 		inputbox = self.browser.find_element_by_id('id_new_item')
 		inputbox.send_keys('Купить молоко')
 		inputbox.send_keys(Keys.ENTER)
-		self.wawait_for_row_in_list_table('1: Купить молоко')
+		self.wait_for_row_in_list_table('1: Купить молоко')
 
 		#френсис получает уникальный  URL-адрес
 		fransis_list_url = self.browser.current_url
@@ -116,4 +116,3 @@ class NewVisitorTest(LiveServerTestCase):
 		self.assertIn('Купить молоко', page_text)
 
 		#удовлетворенные они ложаться спать (you know what i mean)
-		
