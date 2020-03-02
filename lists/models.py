@@ -7,7 +7,7 @@ class List(models.Model):
 class Item(models.Model):
     '''элемент списка'''
     text = models.TextField(default='')
-    list = models.ForeignKey(List, on_delete=models.CASCADE, default=None)
+    list = models.ForeignKey(List, on_delete=models.DO_NOTHING, default=None)
     # list = models.TextField(default='')
 
 

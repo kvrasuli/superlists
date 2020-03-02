@@ -66,15 +66,15 @@ class NewVisitorTest(LiveServerTestCase):
 		
 		
 		#страница обновляется и теперь в спике 2 элемента
-		self.wait_for_row_in_list_table('1: Купить павлиньи перья')
 		self.wait_for_row_in_list_table('2: Сделать мушку из павлиньих перьев')
+		self.wait_for_row_in_list_table('1: Купить павлиньи перья')
 
 		#эдит интересно запомнился ли ее список. сайт сгенерировал для нее уникальный URL и об этом выводится небольшой текст с пояснениями
 
 		#она посещает этот URL и ее список еще там
 
 		#ей нравки и она идет спать
-		self.fail('Закончить тест!')
+		# self.fail('Закончить тест!')
 
 	def test_multiple_users_can_start_lists_at_different_urls(self):
 		'''тест: многочисленные пользователи могут начать списки по разным url'''
@@ -111,7 +111,7 @@ class NewVisitorTest(LiveServerTestCase):
 		self.assertNotEqual(fransis_list_url, edith_list_url)
 
 		#опять таки нет ни следа от списка эдит
-		page_text = self.browser.find_elements_by_tag_name('body').text
+		page_text = self.browser.find_element_by_tag_name('body').text
 		self.assertNotIn('Купить павлиньи перья', page_text)
 		self.assertIn('Купить молоко', page_text)
 
