@@ -1,5 +1,5 @@
-db.sqlite3
 __pycache__
 *.pyc
 geckodriver.log
 static
+db.sqlite3
