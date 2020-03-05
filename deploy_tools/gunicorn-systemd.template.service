@@ -1,14 +1,14 @@
 [Unit]
-Description=Gunicorn server for DOMAIN
+Description=Gunicorn server for SITENAME
 
 [Service]
 Restart=on-failure
-User=elspeth
-WorkingDirectory=/home/elspeth/sites/DOMAIN
-EnvironmentFile=/home/elspeth/sites/DOMAIN/.env
+User=root
+WorkingDirectory=/home/sites/SITENAME
+EnvironmentFile=/home/sites/SITENAME/.env
 
-ExecStart=/home/elspeth/sites/DOMAIN/virtualenv/bin/gunicorn \
-    --bind unix:/tmp/DOMAIN.socket \
+ExecStart=/home/sites/SITENAME/virtualenv/bin/gunicorn \
+    --bind unix:/tmp/SITENAME.socket \
     superlists.wsgi:application
 
 [Install]
