@@ -16,7 +16,7 @@ class ListandItemModelsTest(TestCase):
 		first_item.save()
 
 		second_item = Item()
-		second_item.text = ('Item the second')
+		second_item.text = 'Item the second'
 		second_item.list = list_
 		second_item.save()
 
@@ -41,5 +41,10 @@ class ListandItemModelsTest(TestCase):
 		with self.assertRaises(ValidationError):
 			item.save()
 			item.full_clean()
+
+	def test_get_absolute_url(self):
+		'''тест: получен абсолютный url'''
+		list_ = List.objects.create()
+		self.assertEqual(list_.get_absolute_url(), f'/lists/{list_.id}/')
 
 	
