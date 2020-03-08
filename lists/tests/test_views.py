@@ -7,7 +7,6 @@ from lists.views import home_page
 from lists.models import Item, List
 
 class HomePageTest(TestCase):
-
 	def test_uses_home_template(self):
 		'''тест домашней страницы'''
 		response = self.client.get('/')
