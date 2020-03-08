@@ -19,9 +19,9 @@ class ItemValidationTest(FunctionalTest):
 		))
 
 		#она пробует снова, теперь с неким текстом для элемента, и теперь это срабатывает
-		self.browser.find_element_by_id('id_new_item').send_keys('Buy Milk')
+		self.browser.find_element_by_id('id_new_item').send_keys('Buy milk')
 		self.browser.find_element_by_id('id_new_item').send_keys(Keys.ENTER)
-		self.wait_for_row_in_list_table('1: Buy Milk')
+		self.wait_for_row_in_list_table('1: Buy milk')
 
 		#как ни странно, эдит решает отправить второй пустой элемент списка
 		self.browser.find_element_by_id('id_new_item').send_keys(Keys.ENTER)
