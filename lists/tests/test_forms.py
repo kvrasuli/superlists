@@ -5,8 +5,10 @@ from lists.forms import (
 )
 from lists.models import Item, List
 
+
 class ExistingListItemFormTest(TestCase):
     '''тест формы элемента существующего списка'''
+
     def test_form_renders_item_text_input(self):
         '''тест: форма отображает текстовый ввод элемента'''
         list_ = List.objects.create()
@@ -28,8 +30,17 @@ class ExistingListItemFormTest(TestCase):
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors['text'], [DUPLICATE_ITEM_ERROR])
 
+    def test_form_save(self):
+        '''тест сохранения формы'''
+        list_ = List.objects.create()
+        form = ExistingListItemForm(for_list=list_, data={'text': 'hi'})
+        new_item = form.save()
+        self.assertEqual(new_item, Item.objects.all()[0])
+
+
 class ItemFormTest(TestCase):
     '''тест формы для элемента списка'''
+
     def test_form_renders_item_text_input(self):
         '''тест: форма отображает текстовое поле ввода'''
         form = ItemForm()
@@ -45,8 +56,10 @@ class ItemFormTest(TestCase):
     def test_form_save_handles_saving_to_a_list(self):
         '''тест: метод save формы обрабатывает сохранение в список'''
         list_ = List.objects.create()
-        form = ItemForm(data={'text':  'do me'})
+        form = ItemForm(data={'text': 'do me'})
         new_item = form.save(for_list=list_)
         self.assertEqual(new_item, Item.objects.first())
         self.assertEqual(new_item.text, 'do me')
         self.assertEqual(new_item.list, list_)
+
+
