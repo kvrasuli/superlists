@@ -45,7 +45,7 @@ class MyListsTest(FunctionalTest):
         first_list_url  = self.browser.current_url
 
         #Она замечает ссылку на мои списки в первый раз
-        self.browser.find_element_by_link_text('Mylists').click() 
+        self.browser.find_element_by_link_text('My lists').click() 
 
         #Она видит, что ее список находится там, и он назван на основе первого элемента списка
         self.wait_for(lambda: self.browser.find_element_by_link_text('Reticulate splines'))
