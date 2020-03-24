@@ -1,6 +1,9 @@
 from django.test import TestCase
 from django.core.exceptions import ValidationError
 from lists.models import Item, List
+from  django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class ItemModelsTest(TestCase):
 	'''тест модели элемента'''
@@ -33,6 +36,16 @@ class ListModelsTest(TestCase):
 		'''тест: получен абсолютный url'''
 		list_ = List.objects.create()
 		self.assertEqual(list_.get_absolute_url(), f'/lists/{list_.id}/')
+
+	def test_lists_can_have_owners(self):
+		'''тест: списки могут иметь владельцев'''
+		user = User.objects.create(email='a@b.com')
+		list_ = List.objects.create(owner=user)
+		self.assertIn(list_, user.list_set.all())
+
+	def test_list_owner_is_optional(self):
+		'''тест: владелец списка является необязательным'''
+		List.objects.create() # не должно поднимать исключения
 
 	def test_duplicate_items_are_invalid(self):
 		'''тест: повторы элементов не допустимы'''
